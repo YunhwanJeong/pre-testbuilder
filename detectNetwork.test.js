@@ -19,9 +19,11 @@ describe("Introduction to Mocha Tests - READ ME FIRST", function() {
   // 아래 섹션을 이해했으면, 주석 처리해도 좋습니다.
   // 실패한 테스트가 있는 경우 진행할 수 없기 때문입니다.
 
+/*
   it("오류가 발생하면 테스트가 실패합니다.", function() {
     throw new Error("저를 지워주세요!");
   });
+*/
 
   it("오류가 발생하지 않으므로, 실패하지 않습니다.", function() {
     // 이 테스트는 실제로 아무것도 테스트하지 않습니다. 그러므로 그냥 여기는 통과하게 됩니다.
