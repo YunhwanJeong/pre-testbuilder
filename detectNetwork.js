@@ -11,7 +11,51 @@
  *  2. 숫자들의 길이 (아래에서는 lenght라고 불립니다.)
  */
 
+/** pseudo code
+ * 
+ * -cardNumber 입력
+ *  -앞 자리 숫자 찾는 로직
+ *   -숫자 전부 정규식화 시켜서 regexpObj.test(cardNumber)
+ *  -길이 찾는 로직
+ */
 function detectNetwork(cardNumber) {
+  var reg = new RegExp();
+  var prefixList = {
+    Diner: ['38', '39'],
+    American: ['34', '37'],
+    Visa: ['13', '16', '19'],
+    Master: ['51', '52', '53', '54', '55']
+  }
+  for(let companyName in prefixList) {
+    for(let prefix of companyName) {
+      
+    }
+  }
+
+
+
+/** 해법 1
+ * var prefix = cardNumber.slice(0,2);
+  if(prefix === '34' || prefix === '37') {
+    if(cardNumber.length === 15) {
+      return "American Express";
+    }
+  } else if(prefix === '38' || prefix === '39') {
+    if(cardNumber.length === 14) {
+      return "Diner's Club";
+    }
+  } else if(prefix[0] === '4') {
+    if(cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19) {
+      return 'Visa';
+    }
+  } else if(prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55') {
+    if(cardNumber.length === 16) {
+      return 'MasterCard';
+    }
+  }
+ * 
+ */
+  
   /**
    * 주의사항: 'cardNumber'는 항상 문자열입니다.
    * 'Diner's Club' 카드는 항상 38이나 39로 시작을하고, 14 자릿 수의 길이를 가집니다.
