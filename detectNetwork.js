@@ -15,22 +15,20 @@
  * 
  * -cardNumber 입력
  *  -앞 자리 숫자 찾는 로직
- *   -숫자 전부 정규식화 시켜서 regexpObj.test(cardNumber)
+ *   -regexpObj.test(cardNumber)
  *  -길이 찾는 로직
  */
 function detectNetwork(cardNumber) {
-  var reg = new RegExp();
   var prefixList = {
-    Diner: ['38', '39'],
-    American: ['34', '37'],
-    Visa: ['13', '16', '19'],
-    Master: ['51', '52', '53', '54', '55']
+    Diner: [/38/, /39/],
+    American: [/34/, /37/],
+    Visa: [/13/, /16/, /19/],
+    Master: [/51/, /52/, /53/, /54/, /55/]
   }
   for(let companyName in prefixList) {
-    for(let prefix of companyName) {
-      
-    }
+    
   }
+
 
 
 
