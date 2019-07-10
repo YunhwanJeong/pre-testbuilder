@@ -43,26 +43,23 @@ function detectNetwork(cardNumber) {
   }
   var networkArr = [dinersClub, americanExpress, visa, masterCard]
 
-  networkArr.forEach(function(network) {
-	console.log('network: ', network);
+  loop1:		
+  for(let network of networkArr) {
+	  loop2:
     for(let reg of network.prefix) {
-	console.log('reg: ', reg);
-      if(reg.test(cardNumber)) {
-		console.log('-----------------------')
-        for(let lengthValue of network.cardNumLength) {
-		  console.log('lengthValue: ', lengthValue);
-          if(lengthValue === cardNumber.length) {
-			console.log('=======================');
-            return detectedNetwork + network.name;
-			console.log('detectedNetwork: ', detectedNetwork)
+      if(reg.test(cardNumber)) {	
+		    loop3:
+        for(let lengthValue of network.cardNumLength) {		
+          if(lengthValue === cardNumber.length) {			
+            detectedNetwork += network.name;
+			      break loop1;
           }
         }
       }
     }
-  })
+  }
   return detectedNetwork;
-};
-
+}
   /**
    * 주의사항: 'cardNumber'는 항상 문자열입니다.
    * 'Diner's Club' 카드는 항상 38이나 39로 시작을하고, 14 자릿 수의 길이를 가집니다.
@@ -91,7 +88,7 @@ function detectNetwork(cardNumber) {
   }
  * 
  */
-}
+
 // you don't have to worry about this code. keep this code.
 
 if (typeof window === "undefined") {
