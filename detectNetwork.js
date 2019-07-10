@@ -14,25 +14,63 @@
 /** pseudo code
  * 
  * -cardNumber 입력
- *  -앞 자리 숫자 찾는 로직
- *   -regexpObj.test(cardNumber)
- *  -길이 찾는 로직
+ *  -카드사별로 찾기
+ *   -카드사별 prefix & length 객체 생성
+ *   -if문 4개로 카드사별 판별 로직 생성
+ *
  */
 function detectNetwork(cardNumber) {
-  var prefixList = {
-    Diner: [/38/, /39/],
-    American: [/34/, /37/],
-    Visa: [/13/, /16/, /19/],
-    Master: [/51/, /52/, /53/, /54/, /55/]
+  var detectedNetwork = '';
+  var dinersClub = {
+    prefix: [/^38/, /^39/],
+    cardNumLength: [14],
+    name: `Diner's Club`
   }
-  for(let companyName in prefixList) {
-    
+  var americanExpress = {
+    prefix: [/^34/, /^37/],
+    cardNumLength: [15],
+    name: 'American Express'
   }
+  var visa = {
+    prefix: [/^4/],
+    cardNumLength: [13, 16, 19],
+    name: 'Visa'
+  }
+  var masterCard = {
+    prefix: [/^51/, /^52/, /^53/, /^54/, /^55/],
+    cardNumLength: [16],
+    name: 'MasterCard'
+  }
+  var networkArr = [dinersClub, americanExpress, visa, masterCard]
 
+  networkArr.forEach(function(network) {
+	console.log('network: ', network);
+    for(let reg of network.prefix) {
+	console.log('reg: ', reg);
+      if(reg.test(cardNumber)) {
+		console.log('-----------------------')
+        for(let lengthValue of network.cardNumLength) {
+		  console.log('lengthValue: ', lengthValue);
+          if(lengthValue === cardNumber.length) {
+			console.log('=======================');
+            return detectedNetwork + network.name;
+			console.log('detectedNetwork: ', detectedNetwork)
+          }
+        }
+      }
+    }
+  })
+  return detectedNetwork;
+};
 
+  /**
+   * 주의사항: 'cardNumber'는 항상 문자열입니다.
+   * 'Diner's Club' 카드는 항상 38이나 39로 시작을하고, 14 자릿 수의 길이를 가집니다.
+   * 'American Express' 카드는 항상 34 나 37로 시작하고, 15 자릿 수의 길이를 가집니다.
+   * 이 글을 읽으셨다면, 이 함수를 작성하신 뒤, console 화면으로 돌아가세요.
+   */
 
-
-/** 해법 1
+   /** 해법 1
  * var prefix = cardNumber.slice(0,2);
   if(prefix === '34' || prefix === '37') {
     if(cardNumber.length === 15) {
@@ -53,15 +91,7 @@ function detectNetwork(cardNumber) {
   }
  * 
  */
-  
-  /**
-   * 주의사항: 'cardNumber'는 항상 문자열입니다.
-   * 'Diner's Club' 카드는 항상 38이나 39로 시작을하고, 14 자릿 수의 길이를 가집니다.
-   * 'American Express' 카드는 항상 34 나 37로 시작하고, 15 자릿 수의 길이를 가집니다.
-   * 이 글을 읽으셨다면, 이 함수를 작성하신 뒤, console 화면으로 돌아가세요.
-   */
 }
-
 // you don't have to worry about this code. keep this code.
 
 if (typeof window === "undefined") {
