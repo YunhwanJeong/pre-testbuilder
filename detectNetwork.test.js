@@ -45,19 +45,18 @@ describe("Introduction to Mocha Tests - READ ME FIRST", function() {
     }
   });
 });
+
 describe("Diner's Club", function() {
   // 주의하세요, 테스트에도 버그가 존재할 수 있습니다...
 
   it("has a prefix of 38 and a length of 14", function() {
-    throw new Error("Delete me!");
-
     if (detectNetwork("38345678901234") !== "Diner's Club") {
       throw new Error("Test failed");
     }
   });
 
   it("has a prefix of 39 and a length of 14", function() {
-    if (detectNetwork("3934567890123") !== "Diner's Club") {
+    if (detectNetwork("39345678901234") !== "Diner's Club") {
       throw new Error("Test failed");
     }
   });
@@ -66,7 +65,6 @@ describe("Diner's Club", function() {
 describe("American Express", function() {
   // 항상 if/throw 구문으로 오류를 체크하는 것은 귀찮은 일이기 때문에,
   // 여기에 도움을 줄 수 있는 함수를 하나 제공했습니다. 입력값이 true가 아닐 경우 에러를 발생시킵니다.
-  let assert = function(isTrue) {
     if (!isTrue) {
       throw new Error("Test failed");
     }
