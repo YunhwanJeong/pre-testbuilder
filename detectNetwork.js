@@ -41,7 +41,17 @@ function detectNetwork(cardNumber) {
     cardNumLength: [16],
     name: 'MasterCard'
   }
-  var networkArr = [dinersClub, americanExpress, visa, masterCard]
+  var discover= {
+    prefix: [/^6011/, /^65/, /^644/, /^649/],
+    cardNumLength: [16, 19],
+    name: 'Discover'
+  }
+  var maestro = {
+    prefix: [/^5018/, /^5020/, /^5038/, /^6304/],
+    cardNumLength: [12,13,14,15,16,17,18,19],
+    name: 'Maestro'
+  }
+  var networkArr = [dinersClub, americanExpress, visa, masterCard, discover, maestro]
 
   loop1:		
   for(let network of networkArr) {
