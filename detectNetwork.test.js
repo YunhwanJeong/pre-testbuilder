@@ -65,6 +65,7 @@ describe("Diner's Club", function() {
 describe("American Express", function() {
   // 항상 if/throw 구문으로 오류를 체크하는 것은 귀찮은 일이기 때문에,
   // 여기에 도움을 줄 수 있는 함수를 하나 제공했습니다. 입력값이 true가 아닐 경우 에러를 발생시킵니다.
+  let assert = function(isTrue) {
     if (!isTrue) {
       throw new Error("Test failed");
     }
@@ -84,7 +85,7 @@ describe("Visa", function() {
   // Chai는 이전에 만들었던 assert 함수와 동일한 기능을 하는 assert 함수를 제공합니다.
   // Chai가 제공하는 assert 함수를 어떻게 사용하는지 웹사이트의 공식 문서를 참고해보세요.
   //   http://chaijs.com/
-  let assert = chai.FILL_ME_IN;
+  let assert = chai.assert;
 
   it("has a prefix of 4 and a length of 13", function() {
     assert(detectNetwork("4123456789012") === "Visa");
@@ -106,15 +107,15 @@ describe("MasterCard", function() {
   //   http://chaijs.com/api/bdd/
   let expect = chai.expect;
 
-  it(FILL_ME_IN, function() {
+  it("has a prefix of 51 and a length of 16", function() {
     expect(detectNetwork("5112345678901234")).to.equal("MasterCard");
   });
 
-  it(FILL_ME_IN, function() {
+  it("has a prefix of 52 and a length of 16", function() {
     expect(detectNetwork("5212345678901234")).to.equal("MasterCard");
   });
 
-  it(FILL_ME_IN, function() {
+  it("has a prefix of 53 and a length of 16", function() {
     expect(detectNetwork("5312345678901234")).to.equal("MasterCard");
   });
 
@@ -128,19 +129,42 @@ describe("MasterCard", function() {
   let should = chai.should();
 
   it("has a prefix of 54 and a length of 16", function() {
-    detectNetwork("5412345678901234").should.equal(FILL_ME_IN);
+    detectNetwork("5412345678901234").should.equal("MasterCard");
   });
 
   it("has a prefix of 55 and a length of 16", function() {
-    detectNetwork("5512345678901234").should.equal(FILL_ME_IN);
+    detectNetwork("5512345678901234").should.equal("MasterCard");
   });
 });
 
 describe("Discover", function() {
   // 함수가 없는 테스트는 "pending"이라는 표시가 뜨며 실행되지 않습니다.
   // 아래 테스트를 작성하고 테스트가 통과하도록 만드십시오.
-  it("has a prefix of 6011 and a length of 16");
-  it("has a prefix of 6011 and a length of 19");
+  let expect = chai.expect;
+  it("has a prefix of 6011 and a length of 16", function() {
+    expect(detectNetwork("6011012345678901")).to.equal("Discover");
+  });
+  it("has a prefix of 6011 and a length of 19", function() {
+    expect(detectNetwork("6011012345678901234")).to.equal("Discover");
+  });
+  it("has a prefix of 65 and a length of 16", function() {
+    expect(detectNetwork("6501234567890123")).to.equal("Discover");
+  });
+  it("has a prefix of 65 and a length of 19", function() {
+    expect(detectNetwork("6501234567890123456")).to.equal("Discover");
+  });
+  it("has a prefix of 644 and a length of 16", function() {
+    expect(detectNetwork("6440123456789012")).to.equal("Discover");
+  });
+  it("has a prefix of 644 and a length of 19", function() {
+    expect(detectNetwork("6440123456789012345")).to.equal("Discover");
+  });
+  it("has a prefix of 649 and a length of 16", function() {
+    expect(detectNetwork("6490123456789012")).to.equal("Discover");
+  });
+  it("has a prefix of 649 and a length of 19", function() {
+    expect(detectNetwork("6490123456789012345")).to.equal("Discover");
+  });
 });
 
 describe("Maestro", function() {
