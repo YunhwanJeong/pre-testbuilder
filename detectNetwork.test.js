@@ -26,7 +26,7 @@ describe("Introduction to Mocha Tests - READ ME FIRST", function() {
 */
 
   it("오류가 발생하지 않으므로, 실패하지 않습니다.", function() {
-    // 이 테스트는 실제로 아무것도 테스트하지 않습니다. 그러므로 그냥 여기는 통과하게 됩니다.
+    // 이 테스트는 실제로 아무것도 테스트하지 않습니다. 그러므로 그냥 여기는 통과하게 됩니다.
     let even = function(num) {
       return num % 2 === 0;
     };
@@ -37,7 +37,7 @@ describe("Introduction to Mocha Tests - READ ME FIRST", function() {
   // 예상 동작이 실제 동작과 다르다면, 테스트는 실패해야 합니다.
   it("예상 동작이 실제 동작과 일치하지 않을 때 오류가 발생합니다.", function() {
     let even = function(num) {
-      return num / 2 === 0; // 체크하려는 함수에 뭔가 문제가 있군요!
+      return num % 2 === 0; // 체크하려는 함수에 뭔가 문제가 있군요!
     };
 
     if (even(10) !== true) {
@@ -48,18 +48,13 @@ describe("Introduction to Mocha Tests - READ ME FIRST", function() {
 
 describe("Diner's Club", function() {
   // 주의하세요, 테스트에도 버그가 존재할 수 있습니다...
-
-  it("has a prefix of 38 and a length of 14", function() {
-    if (detectNetwork("38345678901234") !== "Diner's Club") {
-      throw new Error("Test failed");
-    }
-  });
-
-  it("has a prefix of 39 and a length of 14", function() {
-    if (detectNetwork("39345678901234") !== "Diner's Club") {
-      throw new Error("Test failed");
-    }
-  });
+  for(let i = 38; i <= 39; i++) {
+    it("has a prefix of " + i + " and a length of 14", function() {
+      if(detectNetwork(i + '000000000000') !== "Diner's Club") {
+        throw new Error("Test failed");
+      }
+    });
+  }
 });
 
 describe("American Express", function() {
@@ -71,13 +66,11 @@ describe("American Express", function() {
     }
   };
 
-  it("has a prefix of 34 and a length of 15", function() {
-    assert(detectNetwork("343456789012345") === "American Express");
-  });
-
-  it("has a prefix of 37 and a length of 15", function() {
-    assert(detectNetwork("373456789012345") === "American Express");
-  });
+  for(let i = 34; i <= 37; i = i + 3) {
+    it("has a prefix of " +  i + " and a length of 15", function() { 
+      assert(detectNetwork(i.toString() + "0000000000000") === "American Express");
+    });
+  }
 });
 
 describe("Visa", function() {
@@ -87,16 +80,9 @@ describe("Visa", function() {
   //   http://chaijs.com/
   let assert = chai.assert;
 
-  it("has a prefix of 4 and a length of 13", function() {
-    assert(detectNetwork("4123456789012") === "Visa");
-  });
-
-  it("has a prefix of 4 and a length of 16", function() {
-    assert(detectNetwork("4123456789012345") === "Visa");
-  });
-
-  it("has a prefix of 4 and a length of 19", function() {
-    assert(detectNetwork("4123456789012345678") === "Visa");
+  for(let i = '4000000000000'; i.length <= 19; i = i + '000') 
+  it("has a prefix of 4 and a length of " + i.length, function() {
+      assert(detectNetwork(i) === "Visa");
   });
 });
 
@@ -106,19 +92,11 @@ describe("MasterCard", function() {
   // 이와 관련해 더 알고 싶다면, 공식 문서를 참고하세요.
   //   http://chaijs.com/api/bdd/
   let expect = chai.expect;
-
-  it("has a prefix of 51 and a length of 16", function() {
-    expect(detectNetwork("5112345678901234")).to.equal("MasterCard");
-  });
-
-  it("has a prefix of 52 and a length of 16", function() {
-    expect(detectNetwork("5212345678901234")).to.equal("MasterCard");
-  });
-
-  it("has a prefix of 53 and a length of 16", function() {
-    expect(detectNetwork("5312345678901234")).to.equal("MasterCard");
-  });
-
+  for(let prefix = 51; prefix <= 55; prefix++) {
+    it("has a prefix of " + prefix + " and a length of 16", function() {
+      expect(detectNetwork(prefix + "00000000000000")).to.equal("MasterCard");
+    });
+  }
   // expect 대신에 should라는 문법을 사용해서 스타일을 조금 변경할 수도 있습니다.
   // 사실 둘 중 어떤 것을 사용하는지는 중요하지 않습니다.
   // 스타일에 관련해서는 다음 사이트를 참조하세요. http://chaijs.com/guide/styles/
@@ -126,15 +104,6 @@ describe("MasterCard", function() {
   // (우리는 공부를 하는 중이기 때문에 두가지 방법 모두를 사용해 보았습니다.)
   // 테스트를 작성하는 중에, 두가지 방법을 동시에 사용하려고 하면 진행되지 않을 것입니다.
   // expect나 should 둘 중에 한가지 방법을 선택해서 사용하세요.
-  let should = chai.should();
-
-  it("has a prefix of 54 and a length of 16", function() {
-    detectNetwork("5412345678901234").should.equal("MasterCard");
-  });
-
-  it("has a prefix of 55 and a length of 16", function() {
-    detectNetwork("5512345678901234").should.equal("MasterCard");
-  });
 });
 
 describe("Discover", function() {
@@ -153,119 +122,26 @@ describe("Discover", function() {
   it("has a prefix of 65 and a length of 19", function() {
     expect(detectNetwork("6501234567890123456")).to.equal("Discover");
   });
-  it("has a prefix of 644 and a length of 16", function() {
-    expect(detectNetwork("6440123456789012")).to.equal("Discover");
-  });
-  it("has a prefix of 644 and a length of 19", function() {
-    expect(detectNetwork("6440123456789012345")).to.equal("Discover");
-  });
-  it("has a prefix of 649 and a length of 16", function() {
-    expect(detectNetwork("6490123456789012")).to.equal("Discover");
-  });
-  it("has a prefix of 649 and a length of 19", function() {
-    expect(detectNetwork("6490123456789012345")).to.equal("Discover");
-  });
+  for(let i = 644; i <= 649; i++) {
+    for(let j = "0000000000000"; j.length <= 16; j = j + "000") {
+      it("has a prefix of " + i + " and a length of " + (i + j).length, function() {
+        expect(detectNetwork(i + j)).to.equal("Discover");
+      })
+    }
+  }
 });
 
 describe("Maestro", function() {
   let expect = chai.expect;
   // Maestro 카드를 판별 할 수 있는 모든 경우의 수를 확인할 수 있는 테스트를 작성해보세요.
-  it("has a prefix of 5018 and a length of 12", function() {
-    expect(detectNetwork("501812345678")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 13", function() {
-    expect(detectNetwork("5018123456789")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 14", function() {
-    expect(detectNetwork("50181234567890")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 15", function() {
-    expect(detectNetwork("501812345678901")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 16", function() {
-    expect(detectNetwork("5018123456789012")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 17", function() {
-    expect(detectNetwork("50181234567890123")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 18", function() {
-    expect(detectNetwork("501812345678901234")).to.equal("Maestro");
-  })
-  it("has a prefix of 5018 and a length of 19", function() {
-    expect(detectNetwork("5018123456789012345")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 12", function() {
-    expect(detectNetwork("502012345678")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 13", function() {
-    expect(detectNetwork("5020123456789")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 14", function() {
-    expect(detectNetwork("50201234567890")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 15", function() {
-    expect(detectNetwork("502012345678901")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 16", function() {
-    expect(detectNetwork("5020123456789012")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 17", function() {
-    expect(detectNetwork("50201234567890123")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 18", function() {
-    expect(detectNetwork("502012345678901234")).to.equal("Maestro");
-  })
-  it("has a prefix of 5020 and a length of 19", function() {
-    expect(detectNetwork("5020123456789012345")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 12", function() {
-    expect(detectNetwork("503812345678")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 13", function() {
-    expect(detectNetwork("5038123456789")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 14", function() {
-    expect(detectNetwork("50381234567890")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 15", function() {
-    expect(detectNetwork("503812345678901")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 16", function() {
-    expect(detectNetwork("5038123456789012")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 17", function() {
-    expect(detectNetwork("50381234567890123")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 18", function() {
-    expect(detectNetwork("503812345678901234")).to.equal("Maestro");
-  })
-  it("has a prefix of 5038 and a length of 19", function() {
-    expect(detectNetwork("5038123456789012345")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 12", function() {
-    expect(detectNetwork("630412345678")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 13", function() {
-    expect(detectNetwork("6304123456789")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 14", function() {
-    expect(detectNetwork("63041234567890")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 15", function() {
-    expect(detectNetwork("630412345678901")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 16", function() {
-    expect(detectNetwork("6304123456789012")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 17", function() {
-    expect(detectNetwork("63041234567890123")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 18", function() {
-    expect(detectNetwork("630412345678901234")).to.equal("Maestro");
-  })
-  it("has a prefix of 6304 and a length of 19", function() {
-    expect(detectNetwork("6304123456789012345")).to.equal("Maestro");
-  })
+  let prefixArr = [5018, 5020, 5038, 6304];
+  for(let i = 0; i < prefixArr.length; i++) {
+    for(let j = "00000000"; j.length <= 15; j = j + "0") {
+      it("has a prefix of " + prefixArr[i] + " and a length of " + (prefixArr[i] + j).length, function() {
+        expect(detectNetwork(prefixArr[i] + j)).to.equal("Maestro");
+      })
+    }
+  }
 });
 
 // China UnionPay와 Switch를 검사하는 것은 Advanced 과제입니다.
