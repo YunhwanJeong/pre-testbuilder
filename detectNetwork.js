@@ -42,7 +42,7 @@ function detectNetwork(cardNumber) {
     name: 'MasterCard'
   }
   var discover= {
-    prefix: [/^6011/, /^65/, /^644/, /^649/],
+    prefix: [/^6011/, /^65/, /^644/, /^645/, /^646/, /^647/, /^648/, /^649/],
     cardNumLength: [16, 19],
     name: 'Discover'
   }
