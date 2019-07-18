@@ -14,62 +14,68 @@
 /** pseudo code
  * 
  * -cardNumber 입력
- *  -카드사별로 찾기
- *   -카드사별 prefix & length 객체 생성
- *   -if문 4개로 카드사별 판별 로직 생성
+ *  -앞자리수 판별
+ *  -길이 판별
+ *   
+ *   
  *
  */
 function detectNetwork(cardNumber) {
-  var detectedNetwork = '';
-  var dinersClub = {
-    prefix: [/^38/, /^39/],
-    cardNumLength: [14],
-    name: `Diner's Club`
+  let range = function (start, end) {
+    
   }
-  var americanExpress = {
-    prefix: [/^34/, /^37/],
-    cardNumLength: [15],
-    name: 'American Express'
-  }
-  var visa = {
-    prefix: [/^4/],
-    cardNumLength: [13, 16, 19],
-    name: 'Visa'
-  }
-  var masterCard = {
-    prefix: [/^51/, /^52/, /^53/, /^54/, /^55/],
-    cardNumLength: [16],
-    name: 'MasterCard'
-  }
-  var discover= {
-    prefix: [/^6011/, /^65/, /^644/, /^645/, /^646/, /^647/, /^648/, /^649/],
-    cardNumLength: [16, 19],
-    name: 'Discover'
-  }
-  var maestro = {
-    prefix: [/^5018/, /^5020/, /^5038/, /^6304/],
-    cardNumLength: [12,13,14,15,16,17,18,19],
-    name: 'Maestro'
-  }
-  var networkArr = [dinersClub, americanExpress, visa, masterCard, discover, maestro]
-
-  loop1:		
-  for(let network of networkArr) {
-	  loop2:
-    for(let reg of network.prefix) {
-      if(reg.test(cardNumber)) {	
-		    loop3:
-        for(let lengthValue of network.cardNumLength) {		
-          if(lengthValue === cardNumber.length) {			
-            detectedNetwork += network.name;
-			      break loop1;
-          }
-        }
-      }
-    }
-  }
-  return detectedNetwork;
 }
+// function detectNetwork(cardNumber) {
+//   var detectedNetwork = '';
+//   var dinersClub = {
+//     prefix: [/^38/, /^39/],
+//     cardNumLength: [14],
+//     name: `Diner's Club`
+//   }
+//   var americanExpress = {
+//     prefix: [/^34/, /^37/],
+//     cardNumLength: [15],
+//     name: 'American Express'
+//   }
+//   var visa = {
+//     prefix: [/^4/],
+//     cardNumLength: [13, 16, 19],
+//     name: 'Visa'
+//   }
+//   var masterCard = {
+//     prefix: [/^51/, /^52/, /^53/, /^54/, /^55/],
+//     cardNumLength: [16],
+//     name: 'MasterCard'
+//   }
+//   var discover= {
+//     prefix: [/^6011/, /^65/, /^644/, /^645/, /^646/, /^647/, /^648/, /^649/],
+//     cardNumLength: [16, 19],
+//     name: 'Discover'
+//   }
+//   var maestro = {
+//     prefix: [/^5018/, /^5020/, /^5038/, /^6304/],
+//     cardNumLength: [12,13,14,15,16,17,18,19],
+//     name: 'Maestro'
+//   }
+//   var networkArr = [dinersClub, americanExpress, visa, masterCard, discover, maestro]
+
+//   loop1:		
+//   for(let network of networkArr) {
+// 	  loop2:
+//     for(let reg of network.prefix) {
+//       if(reg.test(cardNumber)) {	
+// 		    loop3:
+//         for(let lengthValue of network.cardNumLength) {		
+//           if(lengthValue === cardNumber.length) {			
+//             detectedNetwork += network.name;
+// 			      break loop1;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   return detectedNetwork;
+// }
   /**
    * 주의사항: 'cardNumber'는 항상 문자열입니다.
    * 'Diner's Club' 카드는 항상 38이나 39로 시작을하고, 14 자릿 수의 길이를 가집니다.
