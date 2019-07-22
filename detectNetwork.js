@@ -21,23 +21,6 @@
  *
  */
 function detectNetwork(cardNumber) {
-  let cardIdentificationInfo = {
-    dinersClub: {},
-    americanExpress: {},
-    visa: {},
-    masterCard: {},
-    discover: {},
-    maestro: {},
-    chinaUnionPay: {},
-    switch: {}
-  };
-
-  const rangeOfPrefix = (start, end) => {
-    const length = end - start;
-    return Array.from({length}, (_, i) =>"/^" + start + i + "/");
-  }
-
-
 }
 // function detectNetwork(cardNumber) {
 //   var detectedNetwork = '';
