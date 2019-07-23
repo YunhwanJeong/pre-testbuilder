@@ -14,13 +14,21 @@
 /** pseudo code
  * 
  * -cardNumber 입력
- *  -앞자리수 판별
- *  -길이 판별
+ *  -
+ *  -
  *   
  *   
  *
  */
 function detectNetwork(cardNumber) {
+  const dinersClubPrefix = /^[38-39]/;
+  const americanExpressPrefix = /^[34 37]/;
+  const visaPrefix = /^4/;
+  const masterCardPrefix = /^[51-55]/;
+  const discoverPrefix = /^[6011, 65, 644-649]/;
+  const maestroPrefix = /^[5018, 5020, 5038, 6304]/;
+  const chinaUnionPayPrefix = /^[622126-622925]/
+
 }
 // function detectNetwork(cardNumber) {
 //   var detectedNetwork = '';
