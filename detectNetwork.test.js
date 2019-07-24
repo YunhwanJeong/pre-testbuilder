@@ -123,7 +123,7 @@ describe("Discover", function() {
     expect(detectNetwork("6501234567890123456")).to.equal("Discover");
   });
   for(let i = 644; i <= 649; i++) {
-    for(let j = "0000000000000"; j.length <= 16; j = j + "000") {
+    for(let j = "0000000000000"; (i + j).length <= 19; j = j + "000") {
       it("has a prefix of " + i + " and a length of " + (i + j).length, function() {
         expect(detectNetwork(i + j)).to.equal("Discover");
       })
@@ -136,7 +136,7 @@ describe("Maestro", function() {
   // Maestro 카드를 판별 할 수 있는 모든 경우의 수를 확인할 수 있는 테스트를 작성해보세요.
   let prefixArr = [5018, 5020, 5038, 6304];
   for(let i = 0; i < prefixArr.length; i++) {
-    for(let j = "00000000"; j.length <= 15; j = j + "0") {
+    for(let j = "00000000"; (prefixArr[i] + j).length <= 19; j = j + "0") {
       it("has a prefix of " + prefixArr[i] + " and a length of " + (prefixArr[i] + j).length, function() {
         expect(detectNetwork(prefixArr[i] + j)).to.equal("Maestro");
       })
@@ -146,5 +146,62 @@ describe("Maestro", function() {
 
 // China UnionPay와 Switch를 검사하는 것은 Advanced 과제입니다.
 // 원하시는 분들은 도전해보세요!
-describe("should support China UnionPay", function() {});
-describe("should support Switch", function() {});
+//China UnionPay는 항상 622126-622925, 624-626, 또는 6282-6288의 접두사와 16-19의 길이를 가집니다.
+describe("China UnionPay", function() {
+  let expect = chai.expect;
+
+  for (let i = 622126; i <= 622925; i++) {
+    for (let j = "0000000000"; (i + j).length <= 19; j += "0") {
+      it ("has a prefix of " + i + " and a length of " + (i + j).length, function () {
+        expect(detectNetwork(i + j)).to.equal("China UnionPay");
+      })
+    }
+  }
+  for (let i = 624; i <= 626; i++) {
+    for (let j = "0000000000000"; (i + j).length <= 19; j += "0") {
+      it ("has a prefix of " + i + " and a length of " + (i + j).length, function () {
+        expect(detectNetwork(i + j)).to.equal("China UnionPay");
+      })
+    }
+  }
+  for (let i = 6282; i <= 6288; i++) {
+    for (let j = "000000000000"; (i + j).length <= 19; j += "0") {
+      it ("has a prefix of " + i + " and a length of " + (i + j).length, function () {
+        expect(detectNetwork(i + j)).to.equal("China UnionPay");
+      })
+    }
+  }
+});
+
+
+
+
+//Switch는 항상 4903, 4905, 4911, 4936, 6333, 6759, 564182, 633110의 접두사와 16, 18, 또는 19의 길이를 가집니다.
+describe("Switch", function() {
+  let expect = chai.expect;
+  let prefixArrLength4 = [4903, 4905, 4911, 4936, 6333, 6759];
+
+  for (let i = 0; i < prefixArrLength4.length; i++) {
+    for (let j = "000000000000"; (prefixArrLength4[i] + j).length <= 18; j += "00") {
+      it ("has a prefix of " + prefixArrLength4[i] + " and a length of " + (prefixArrLength4[i] + j).length, function () {
+        expect(detectNetwork(prefixArrLength4[i] + j)).to.equal("Switch");
+      })
+    }
+    it ("has a prefix of " + prefixArrLength4[i] + " and a length of " + (prefixArrLength4[i] + "000000000000000").length, function () {
+      expect(detectNetwork(prefixArrLength4[i] + "000000000000000")).to.equal("Switch");
+    })
+  }
+
+  let prefixArrLength6 = [564182, 633110];
+
+  for (let i = 0; i < prefixArrLength6.length; i++) {
+    for (let j = "0000000000"; (prefixArrLength6[i] + j).length <= 18; j += "00") {
+      it ("has a prefix of " + prefixArrLength6[i] + " and a length of " + (prefixArrLength6[i] + j).length, function () {
+        expect(detectNetwork(prefixArrLength6[i] + j)).to.equal("Switch");
+      })
+    }
+    it ("has a prefix of " + prefixArrLength6[i] + " and a length of " + (prefixArrLength6[i] + "0000000000000").length, function () {
+      expect(detectNetwork(prefixArrLength6[i] + "0000000000000")).to.equal("Switch");
+    })
+  }
+});
