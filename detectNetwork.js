@@ -21,14 +21,41 @@
  *
  */
 function detectNetwork(cardNumber) {
-  const dinersClubPrefix = /^[38-39]/;
-  const americanExpressPrefix = /^[34 37]/;
-  const visaPrefix = /^4/;
-  const masterCardPrefix = /^[51-55]/;
-  const discoverPrefix = /^[6011, 65, 644-649]/;
-  const maestroPrefix = /^[5018, 5020, 5038, 6304]/;
-  const chinaUnionPayPrefix = /^[622126-622925]/
+  let leng = cardNumber.length;
 
+  const dinersClubPrefix = /^3[89]/;
+  const americanExpressPrefix = /^3[47]/;
+  const visaPrefix = /^4/;
+  const masterCardPrefix = /^5[1-5]/;
+  const discoverPrefix = /^6011|^65|^64[4-9]/;
+  const maestroPrefix = /^50[13]8|^5020|^6304/;
+  const chinaUnionPayPrefix = /^62212[6-9]|^6221[3-9][0-9]|^622[2-8][0-9][0-9]|^6229[0-1][0-9]|^62292[0-5]|^62[4-6]|^628[2-8]/;
+  const switchPrefix = /^490[35]|^4911|^4936|^564182|^6333|^633110|^6759/
+
+  if (dinersClubPrefix.test(cardNumber) && leng === 14) {
+    return "Diner's Club";
+  }
+  if (americanExpressPrefix.test(cardNumber) && leng === 15) {
+    return "American Express";
+  }
+  if (visaPrefix.test(cardNumber) && !switchPrefix.test(cardNumber) && (leng === 13 || leng === 16 || leng === 19)) {
+    return "Visa";
+  }
+  if (masterCardPrefix.test(cardNumber) && leng === 16) {
+    return "MasterCard";
+  }
+  if (discoverPrefix.test(cardNumber) && (leng === 16 || leng === 19)) {
+    return "Discover";
+  }
+  if (maestroPrefix.test(cardNumber) && (leng === 12 || leng === 13 || leng === 14 || leng === 15 || leng === 16 || leng ===  17 || leng === 18 || leng === 19)) {
+    return "Maestro";
+  }
+  if (chinaUnionPayPrefix.test(cardNumber) && (leng === 16 || leng === 17 || leng === 18 || leng === 19)) {
+    return "China UnionPay";
+  }
+  if (switchPrefix.test(cardNumber) && (leng === 16 || leng === 18 || leng === 19)) {
+    return "Switch";
+  }
 }
 // function detectNetwork(cardNumber) {
 //   var detectedNetwork = '';
